@@ -36,7 +36,8 @@ Additionally, we provide a visualization script `visualize.py` to visualize the 
 1. Download top-down images [here](https://drive.google.com/file/d/1lrgghIVYPxCboZ77eTO8cdFcm_6mcZga/view?usp=sharing) and put the images in the data folder.
 2. Download the frontal images [here](https://drive.google.com/file/d/1bhcdej7IFj5GqfvXGrHGPk2Knxe77pek/view?usp=sharing) and put the images in the data folder.
 3. Download the Talk2Car-Trajectory dataset [here](https://drive.google.com/file/d/1IPsgQknSWCFGqgR0EaWNB8fDcyyohMXL/view?usp=share_link) and put all files in the data folder. We also include pre-extracted commmand embeddings with a Sentence-BERT model in the .h5 files in this zip.
-4. Run `visualize.py` to visualize a sample of the dataset
+4. (NEW 3 Nov 2023) The ground truth trajectories can be found [here](https://drive.google.com/file/d/1XMu3z8ywGjOWlcONnzCmqtsL6vALuuLk/view?usp=sharing).
+5. Run `visualize.py` to visualize a sample of the dataset
 
 # Integration with Talk2Car
 

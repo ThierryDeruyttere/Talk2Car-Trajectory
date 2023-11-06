@@ -1,0 +1,15 @@
+python test.py \
+  --width=288\
+  --height=192\
+  --n_conv 5\
+  --combine_at 2\
+  --num_workers 8\
+  --gpu_index 2\
+  --data_dir "/cw/liir_code/NoCsBack/thierry/PathProjection/data_root" \
+  --goals 3\
+  --trajs 3\
+  --visualize_samples\
+  --num_samples_drawn 10\
+  --batch_size 16\
+  --components 1\
+  --checkpoint_path "checkpoint/PTPC_Experiment_lr_9.298078919660486e-05_bs_32_height_192_width_288_weight_dec_0.0_heatmap_sigma_1.0_path_loss_weight_1_no_ref_prob_0.0_pi_loss_2.487_comm_inf_text2conv_obj_inf_detections_and_referred-v5.pth"

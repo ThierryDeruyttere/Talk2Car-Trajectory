@@ -1,0 +1,24 @@
+python train.py\
+ --experiment_name "PTPC"\
+ --width=288\
+ --height=192\
+ --n_conv 5\
+ --combine_at 2\
+ --gpus $1,\
+ --lr 9.298078919660486e-05\
+ --num_workers=4\
+ --batch_size=32\
+ --max_epochs 2000\
+ --data_dir "data_root"\
+ --save_dir "results/ptpc"\
+ --patience 30\
+ --pi_loss_weight=2.487\
+ --obstacle_loss_weight=0.0\
+ --num_obstacles_cap 20\
+ --sample_map_sigma=1\
+ --interpolation_type="neural"\
+ --command_information="text2conv"\
+ --object_information "detections_and_referred"\
+ --shared_command_fusion=True\
+ --neural_interpolation_type="FPN"\
+ --command_embedding="Sentence-BERT"\

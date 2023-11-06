@@ -1,0 +1,43 @@
+intent2ind = {
+    'actionLeft': 0,
+    'actionRight': 1,
+    'actionChangeLaneLeft': 2,
+    'actionChangeLaneRight': 3,
+    'actionULeft': 4,
+    'actionURight': 5,
+    'actionPark': 6,
+    'actionStop': 7,
+    'actionPickUp': 8,
+    'actionContinue': 9,
+    'actionOvertake': 10,
+    'actionDropOff': 11,
+    'actionFollow': 12,
+    'actionSlowDown': 13,
+    'actionWait': 14,
+    'actionApproach': 15,
+    'actionMoveAway': 16,
+    'actionOther': 17,
+    'actionOtherText': 18
+}
+
+ind2intent = {
+    0: 'actionLeft',
+    1: 'actionRight',
+    2: 'actionChangeLaneLeft',
+    3: 'actionChangeLaneRight',
+    4: 'actionULeft',
+    5: 'actionURight',
+    6: 'actionPark',
+    7: 'actionStop',
+    8: 'actionPickUp',
+    9: 'actionContinue',
+    10: 'actionOvertake',
+    11: 'actionDropOff',
+    12: 'actionFollow',
+    13: 'actionSlowDown',
+    14: 'actionWait',
+    15: 'actionApproach',
+    16: 'actionMoveAway',
+    17: 'actionOther',
+    18: 'actionOtherText'
+}

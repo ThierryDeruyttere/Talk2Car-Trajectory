@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -fPIC -O3 -std=gnu++0x -ansi -march=core2 -Wall -Wno-sign-compare  -shared -Wl,-soname,libwemd.so -o ../lib/libwemd.so CMakeFiles/wemd.dir/wemd_impl.cpp.o -Lblitz++/lib/libblitz.la 

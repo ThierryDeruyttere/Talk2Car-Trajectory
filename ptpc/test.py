@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 from model import PTPCTrainer
 from interpolation_heads import SplineInterpolationHead
 from utils.spline_path_torch import interpolate_waypoints_using_splines
-from talk2car import Talk2Car, collate_pad_path_lengths_and_convert_to_tensors
+from talk2car import Talk2Car, collate_pad_path_lengths_and_convert_to_tensors, Talk2Car_Detector
 from utils.visualization_path import draw_path_and_heatmap_t2c, draw_path_frontal_t2c, draw_path_topdown_poly_t2c
 from utils.visualization_box import draw_frontal_boxes, points_cam2img
 from tqdm import tqdm
@@ -28,7 +28,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--data_dir",
     required=False,
-    default="/cw/liir_code/NoCsBack/thierry/PathProjection/data_root",
+    default="../data",
 )
 parser.add_argument("--gpu_index", default=0, type=int, required=False)
 
@@ -162,7 +162,7 @@ def main(args):
         model.trajectory_predictor.interpolation_method = "spline"
         model.trajectory_predictor.interpolation_head = SplineInterpolationHead()
 
-    data_test = Talk2Car(
+    data_test = Talk2Car_Detector(
         split="test",
         dataset_root=args.data_dir,
         height=hparams["height"],
@@ -172,7 +172,7 @@ def main(args):
         path_length=20,
         return_nondrivable=False,
         object_information=hparams["object_information"],
-        gt_box_data_path=args.gt_box_data_path
+        # gt_box_data_path=args.gt_box_data_path
     )
 
     ade_meter = Meter("path_ADE", unit="m")
@@ -428,6 +428,9 @@ def draw_samples(
             _,
             command_text,
             frame_data,
+            all_detections_front,
+            gt_ref_index,
+            ref_index,
         ) = dataset.get_obj_info(bidx * batch_size + b)
 
         if save_command:
@@ -437,29 +440,30 @@ def draw_samples(
             ) as f:
                 f.write(command_text)
 
-        command_token = dataset[bidx * batch_size + b]['command_token']
-        detection_sample_index = dataset.command_index_mapping[command_token]
-        detection_boxes = dataset.box_data[detection_sample_index]
-        cam_intrinsic = frame_data["cam_intrinsic"]
-        corners_3d_front = detection_boxes["3d_boxes_corners_front"]
-        if not isinstance(corners_3d_front, torch.Tensor):
-            corners_3d_front = torch.from_numpy(np.array(corners_3d_front)).float()
-        num_bbox = corners_3d_front.shape[0]
-        points_3d_front = corners_3d_front.reshape(-1, 3)
-        if not isinstance(cam_intrinsic, torch.Tensor):
-            cam_intrinsic = torch.from_numpy(np.array(cam_intrinsic))
-        cam_intrinsic = cam_intrinsic.reshape(3, 3).float().cpu()
-        # project to 2d to get image coords (uv)
-        uv_origin = points_cam2img(points_3d_front, cam_intrinsic)
-        uv_origin = (uv_origin - 1).round()
-        boxes_coords_frontal = uv_origin[..., :2].reshape(num_bbox, 8, 2).numpy()
-        boxes_coords_frontal = boxes_coords_frontal.tolist()
-        ref_index = dataset.gt_box_data[command_token]
+        # command_token = dataset[bidx * batch_size + b]['command_token']
+        # detection_sample_index = dataset.command_index_mapping[command_token]
+        # detection_boxes = dataset.box_data[detection_sample_index]
+        # cam_intrinsic = frame_data["cam_intrinsic"]
+        # corners_3d_front = detection_boxes["3d_boxes_corners_front"]
+        # if not isinstance(corners_3d_front, torch.Tensor):
+        #     corners_3d_front = torch.from_numpy(np.array(corners_3d_front)).float()
+        # num_bbox = corners_3d_front.shape[0]
+        # points_3d_front = corners_3d_front.reshape(-1, 3)
+        # if not isinstance(cam_intrinsic, torch.Tensor):
+        #     cam_intrinsic = torch.from_numpy(np.array(cam_intrinsic))
+        # cam_intrinsic = cam_intrinsic.reshape(3, 3).float().cpu()
+        # # project to 2d to get image coords (uv)
+        # uv_origin = points_cam2img(points_3d_front, cam_intrinsic)
+        # uv_origin = (uv_origin - 1).round()
+        # boxes_coords_frontal = uv_origin[..., :2].reshape(num_bbox, 8, 2).numpy()
+        # boxes_coords_frontal = boxes_coords_frontal.tolist()
+        boxes_coords_frontal = all_detections_front
+        # ref_index = dataset.gt_box_data[command_token]
 
-        gt_boxes_coords_topdown = frame_data['map_objects_bbox']
-        gt_boxes_coords_frontal = frame_data['image_objects_bbox']
-        gt_ref_index = dataset.data[bidx * batch_size + b][0]["command_data"]["box_ix"]
-        gt_ref_box_coords_topdown = frame_data['map_objects_bbox'][gt_ref_index]
+        # gt_boxes_coords_topdown = frame_data['map_objects_bbox']
+        # gt_boxes_coords_frontal = frame_data['image_objects_bbox']
+        # gt_ref_index = dataset.data[bidx * batch_size + b][0]["command_data"]["box_ix"]
+        # gt_ref_box_coords_topdown = frame_data['map_objects_bbox'][gt_ref_index]
         gt_ref_box_coords_frontal = frame_data['image_objects_bbox'][gt_ref_index]
 
         for heatmap_ix in range(num_heatmaps):

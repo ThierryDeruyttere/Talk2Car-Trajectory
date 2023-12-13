@@ -10,7 +10,7 @@ from argparse import ArgumentParser
 import torch
 from torch import nn
 import pytorch_lightning as pl
-from talk2car import Talk2Car
+from talk2car import Talk2Car, Talk2Car_Detector
 from torch.utils.data import DataLoader
 import torch.distributions as D
 
@@ -25,7 +25,7 @@ from utils.sample_mix import sample_mix
 from sampling_cws import sample_waypoints_CWS
 from sampling_ttst import sample_goals_TTST
 from text_backbone.MDETR_roberta import MDETR_Roberta
-from text_backbone.VLNTrans_BERT import VLNTrans_BERT
+# from text_backbone.VLNTrans_BERT import VLNTrans_BERT
 from text_backbone.LSTM import LSTM
 from intent_indices import intent2ind
 import torch.nn.functional as F
@@ -203,11 +203,11 @@ class PTPCTrainer(pl.LightningModule):
 
         if self.hparams.command_embedding == "RoBERTa":
             self.roberta = MDETR_Roberta(
-                pretrained_path="/cw/liir_code/NoCsBack/thierry/PTPC/pretrained/MDETR_pretrained_EB5_checkpoint.pth",
+                pretrained_path="pretrained/pretrained_EB5_checkpoint.pth",
                 output_dim=768
             )
-        elif self.hparams.command_embedding == "VLNTrans":
-            self.vln_bert = VLNTrans_BERT()
+        # elif self.hparams.command_embedding == "VLNTrans":
+        #     self.vln_bert = VLNTrans_BERT()
         elif self.hparams.command_embedding == "LSTM":
             self.lstm = LSTM()
         elif self.hparams.command_embedding == "Clean_LSTM":
@@ -865,7 +865,21 @@ class PTPCTrainer(pl.LightningModule):
         return ade
 
     def _get_dataloader(self, split):
-        return Talk2Car(
+        # return Talk2Car(
+        #     split=split,
+        #     dataset_root=self.hparams.data_dir,
+        #     height=self.input_height,
+        #     width=self.input_width,
+        #     unrolled=self.hparams.unrolled,
+        #     path_increments=False,
+        #     path_length=self.path_length,
+        #     hide_ref_obj_prob=self.hparams.hide_ref_obj_prob,
+        #     return_nondrivable=self.hparams.obstacle_loss_weight > 0.0,
+        #     return_drivable=False,
+        #     object_information=self.hparams.object_information,
+        #     gt_box_data_path=self.hparams.gt_box_data_path
+        # )
+        return Talk2Car_Detector(
             split=split,
             dataset_root=self.hparams.data_dir,
             height=self.input_height,
@@ -873,11 +887,8 @@ class PTPCTrainer(pl.LightningModule):
             unrolled=self.hparams.unrolled,
             path_increments=False,
             path_length=self.path_length,
-            hide_ref_obj_prob=self.hparams.hide_ref_obj_prob,
             return_nondrivable=self.hparams.obstacle_loss_weight > 0.0,
             return_drivable=False,
-            object_information=self.hparams.object_information,
-            gt_box_data_path=self.hparams.gt_box_data_path
         )
 
     def train_dataloader(self):

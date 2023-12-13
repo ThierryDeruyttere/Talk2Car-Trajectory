@@ -20,7 +20,7 @@ parser.add_argument(
 parser.add_argument(
     "--data_dir",
     required=False,
-    default="/cw/liir/NoCsBack/testliir/thierry/PathProjection/data_root",
+    default="../data",
 )
 parser.add_argument("--test", action="store_true", required=False)
 parser.add_argument(
@@ -32,7 +32,7 @@ parser.add_argument("--seed", default=42, required=False)
 parser.add_argument("--batch_size", default=16, required=False, type=int)
 parser.add_argument("--num_workers", type=int, default=4)
 parser.add_argument(
-    "--save_dir", type=str, default="/home2/NoCsBack/hci/dusan/Results/MDN_Independent"
+    "--save_dir", type=str, default="./checkpoints", help="Where to save checkpoints."
 )
 parser.add_argument(
     "--patience",

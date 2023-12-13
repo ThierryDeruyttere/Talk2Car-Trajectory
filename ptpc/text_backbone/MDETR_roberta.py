@@ -1,4 +1,5 @@
 import os
+import traceback
 
 os.environ['TRANSFORMERS_CACHE'] = "../pretrained/huggingface"
 from transformers import RobertaModel, RobertaTokenizerFast
@@ -19,7 +20,12 @@ class MDETR_Roberta(nn.Module):
         self.tokenizer = RobertaTokenizerFast.from_pretrained(text_encoder_type)
         self.text_encoder = RobertaModel.from_pretrained(text_encoder_type)
 
-        state = torch.load(pretrained_path, map_location="cpu")
+        try:
+            state = torch.load(pretrained_path, map_location="cpu")
+        except:
+            print(traceback.format_exc())
+            print("If you are using the pre-trained MDETR model, please download it from here: "
+                  "https://zenodo.org/record/4721981/files/pretrained_EB5_checkpoint.pth?download=1 and put it in the checkpoint folder")
         filtered_key_values = {k.replace("transformer.text_encoder.", ""): v for k, v in state["model"].items() if
                                "text_encoder" in k}
         self.text_encoder.load_state_dict(filtered_key_values)

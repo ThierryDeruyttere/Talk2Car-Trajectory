@@ -1,0 +1,12 @@
+python train.py\
+ --width 288\
+ --height 192\
+ --gpus $1,\
+ --lr 1e-4\
+ --num_workers 4\
+ --batch_size 16\
+ --max_epochs 30\
+ --data_dir "../../data"\
+ --save_dir "YNetSamplingWaypoints_[6, 13, 19]"\
+ --num_goals 3\
+ --waypoints 6 13 19

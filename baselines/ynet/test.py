@@ -273,13 +273,19 @@ def main(args):
             for b in range(bs):
                 if args.draw and num_heatmaps_drawn < args.num_heatmaps_drawn:
                     # Draw some predictions
-                    img_path, frontal_img_path, ego_car, ref_obj, ref_obj_pred, det_objs, _, command_text, frame_data = data_test.get_obj_info(
+                    (img_path, frontal_img_path, ego_car,
+                     ref_obj,
+                     ref_obj_pred, detection_boxes, endpoint,
+                     command, frame_data,
+                     all_detections_front,
+                     box_ix,
+                     ref_index) = data_test.get_obj_info(
                         bidx * bs + b
                     )
                     with open(
                         os.path.join(save_path, "test" + "-" + str(bidx * bs + b) + "-command.txt"), "w"
                     ) as f:
-                        f.write(command_text)
+                        f.write(command)
 
                     # Overlay probability map over image
                     _, _, height, width = layout.shape
@@ -293,7 +299,7 @@ def main(args):
                         save_path=os.path.join(
                             save_path, "test" + "-" + str(bidx * bs + b) + "-path_top_down.png"
                         ),
-                        det_objects=det_objs,
+                        det_objects=detection_boxes,
                         obstacles=drivable_coords[b]
                     )
                     num_heatmaps_drawn += 1

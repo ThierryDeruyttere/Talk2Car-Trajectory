@@ -1,0 +1,235 @@
+{
+    "os": "Linux-5.4.0-169-generic-x86_64-with-glibc2.31",
+    "python": "3.9.15",
+    "heartbeatAt": "2023-12-13T21:09:30.767014",
+    "startedAt": "2023-12-13T21:09:30.624707",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--width",
+        "300",
+        "--height",
+        "200",
+        "--gpus",
+        "0,",
+        "--lr",
+        "1e-4",
+        "--num_workers",
+        "4",
+        "--batch_size",
+        "32",
+        "--max_epochs",
+        "50",
+        "--data_dir",
+        "../../data",
+        "--encoder",
+        "ResNet-18",
+        "--save_dir",
+        "PECNet",
+        "--use_ref_obj",
+        "--patience",
+        "10",
+        "--num_path_nodes",
+        "20",
+        "--unrolled",
+        "--neighbor_dist_thresh",
+        "0.1",
+        "--enc_layout_interm_size",
+        "512",
+        "--enc_layout_latent_size",
+        "256",
+        "128",
+        "--enc_layout_output_size",
+        "128",
+        "--enc_command_latent_size",
+        "256",
+        "128",
+        "--enc_command_output_size",
+        "128",
+        "--enc_dest_latent_size",
+        "8",
+        "16",
+        "--enc_latent_size",
+        "128",
+        "50",
+        "--non_local_theta_size",
+        "256",
+        "128",
+        "64",
+        "--non_local_phi_size",
+        "256",
+        "128",
+        "64",
+        "--non_local_g_size",
+        "256",
+        "128",
+        "64",
+        "--dec_latent_size",
+        "512",
+        "256",
+        "512",
+        "--predictor_latent_size",
+        "1024",
+        "512",
+        "256",
+        "--non_local_dim",
+        "128",
+        "--zdim",
+        "16",
+        "--fdim",
+        "16",
+        "--sigma",
+        "0.13",
+        "--kld_reg",
+        "0.001",
+        "--adl_reg",
+        "1.0",
+        "--non_local_pools",
+        "3",
+        "--input_type",
+        "layout"
+    ],
+    "state": "running",
+    "program": "/mnt/first/Talk2Car-Trajectory/baselines/PECNet/train.py",
+    "codePathLocal": "train.py",
+    "codePath": "baselines/PECNet/train.py",
+    "git": {
+        "remote": "https://github.com/ThierryDeruyttere/Talk2Car-Trajectory.git",
+        "commit": "df48cb5f978ab201607e4d808095b41a6af3861f"
+    },
+    "email": "thierryderuyttere@hotmail.com",
+    "root": "/mnt/first/Talk2Car-Trajectory",
+    "host": "THD-AI",
+    "username": "thierry",
+    "executable": "/home/thierry/miniconda3/bin/python",
+    "cpu_count": 10,
+    "cpu_count_logical": 20,
+    "cpu_freq": {
+        "current": 1243.3575500000002,
+        "min": 1200.0,
+        "max": 4340.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 1200.008,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.084,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1299.993,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1700.002,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1199.999,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.035,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.01,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.011,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.459,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.236,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.003,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.744,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1300.557,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1698.659,
+            "min": 1200.0,
+            "max": 4500.0
+        },
+        {
+            "current": 1199.821,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1201.012,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.148,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.0,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.132,
+            "min": 1200.0,
+            "max": 4300.0
+        },
+        {
+            "current": 1200.068,
+            "min": 1200.0,
+            "max": 4300.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 456.8854446411133,
+            "used": 408.95702743530273
+        }
+    },
+    "gpu": "NVIDIA TITAN Xp",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA TITAN Xp",
+            "memory_total": 12884901888
+        },
+        {
+            "name": "NVIDIA TITAN Xp",
+            "memory_total": 12884901888
+        }
+    ],
+    "memory": {
+        "total": 31.05486297607422
+    }
+}

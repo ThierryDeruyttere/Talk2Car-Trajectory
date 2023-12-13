@@ -1,0 +1,31 @@
+dec_size:
+- 1024
+- 512
+- 1024
+enc_dest_size:
+- 8
+- 16
+enc_latent_size:
+- 256
+- 50
+enc_past_size:
+- 512
+- 256
+non_local_theta_size:
+- 256
+- 128
+- 64
+non_local_phi_size:
+- 256
+- 128
+- 64
+non_local_g_size:
+- 256
+- 128
+- 64
+fdim: 16
+predictor_hidden_size:
+- 1024
+- 512
+- 256
+zdim: 16

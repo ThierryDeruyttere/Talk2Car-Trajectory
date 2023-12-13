@@ -9,7 +9,7 @@ python train.py\
  --num_workers=4\
  --batch_size=32\
  --max_epochs 2000\
- --data_dir "data_root"\
+ --data_dir "../data"\
  --save_dir "results/ptpc"\
  --patience 30\
  --pi_loss_weight=2.487\

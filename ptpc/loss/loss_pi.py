@@ -77,7 +77,7 @@ class PI_Loss(nn.Module):
             heatmaps = compute_hmap_at_downsampling_rate(targets.view(B*N_gt, N_w, -1), downsample_rate=192//H)
             tmp_pi = pi.repeat_interleave(N_gt, 0)
             tmp_pi = tmp_pi.view(-1, N_w, H*W).softmax(-1).view(-1, N_w, H, W)
-            loss += F.binary_cross_entropy(tmp_pi, heatmaps)
+            loss += F.binary_cross_entropy(tmp_pi.float(), heatmaps.float())
 
         return loss
 

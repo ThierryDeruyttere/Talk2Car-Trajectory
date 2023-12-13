@@ -590,16 +590,13 @@ class PTPCTrainer(pl.LightningModule):
         # [B ,N, _] = y.shape
         command_embedding = self.get_command_embedding(batch) #batch["command_embedding"]
 
-        try:
-            mu, sigma, pi, location, trajectories, separate_pis = self.forward_train(
-                batch["layout"],
-                command_embedding,
-                batch["path"],
-                start_pos=batch["start_pos"],
-                num_interpolation_hypotheses=self.hparams.num_interpolation_hypotheses,
-            )
-        except Exception as ex:
-            print(ex)
+        mu, sigma, pi, location, trajectories, separate_pis = self.forward_train(
+            batch["layout"].float(),
+            command_embedding.float(),
+            batch["path"].float(),
+            start_pos=batch["start_pos"].float(),
+            num_interpolation_hypotheses=self.hparams.num_interpolation_hypotheses,
+        )
 
         waypoints_loss = self.waypoint_criterion(
             mu, sigma, pi, batch["path"], target_is_wh=True
@@ -643,9 +640,9 @@ class PTPCTrainer(pl.LightningModule):
         pred_traj = trajectories.reshape(B, -1, num_nodes, 2)
         gt_traj = batch["path"]
         path_loss = self.path_criterion(
-            pred_traj,
-            gt_traj,
-            self.to_meters.to(trajectories),
+            pred_traj.float(),
+            gt_traj.float(),
+            self.to_meters.to(trajectories).float(),
         ).mean()
 
         loss += path_loss
